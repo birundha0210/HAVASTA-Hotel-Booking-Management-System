@@ -1,4 +1,5 @@
 import pool from "../db/database.js";
+import uploadToCloudinary from "../utils/uploadToCloudinary.js";
   export const createHotel= async(req ,res) =>{
     
     try{
@@ -7,9 +8,12 @@ import pool from "../db/database.js";
             }
             =req.body;
 
-            const image = req.file ? `/uploads/${req.file.filename}` : null;
+            let image = null;
 
-
+            if (req.file) {
+         const result = await uploadToCloudinary(req.file.buffer);
+          image = result.secure_url;
+}
             if (!title ||!description || latitude === undefined ||
                 longitude === undefined ||price === undefined){
 
@@ -110,8 +114,12 @@ import pool from "../db/database.js";
 
         console.log("BODY:", req.body);
         console.log("FILE:", req.file);
-        const image = req.file ? `/uploads/${req.file.filename}`: null;
-        const { id } = req.params;
+      let image = null;
+
+if (req.file) {
+    const result = await uploadToCloudinary(req.file.buffer);
+    image = result.secure_url;
+}        const { id } = req.params;
 
         const {
             title,
