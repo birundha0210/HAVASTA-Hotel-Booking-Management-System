@@ -57,7 +57,7 @@ const fetchHotels=async()=>{
 try{
 setLoading(true);
 
-const response=await axios.get("http://localhost:5000/api/hotels",{
+const response=await axios.get("https://havasta-hotel-booking-management-system.onrender.com/api/hotels",{
 params:{
 title:search||undefined,
 minPrice:minPrice||undefined,
@@ -106,7 +106,7 @@ setPage(1);
 const getImageUrl=image=>{
 if(!image)return"";
 if(image.startsWith("http"))return image;
-return`http://localhost:5000${image}`;
+return`https://havasta-hotel-booking-management-system.onrender.com${image}`;
 };
 
 const openDelete=id=>{
@@ -121,7 +121,7 @@ const handleDelete=async()=>{
 if(!deleteId)return;
 
 try{
-await axios.delete(`http://localhost:5000/api/hotels/${deleteId}`);
+await axios.delete(`https://havasta-hotel-booking-management-system.onrender.com/api/hotels/${deleteId}`);
 
 dispatch(removeHotel(deleteId));
 setDeleteId(null);

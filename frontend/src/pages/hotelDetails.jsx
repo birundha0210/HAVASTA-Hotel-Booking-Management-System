@@ -16,6 +16,10 @@ import logo from "../assets/logo.png";
 import name from "../assets/name.png";
 
 
+const API_URL =
+    "https://havasta-hotel-booking-management-system.onrender.com";
+
+
 function HotelDetails() {
 
     const { id } = useParams();
@@ -45,11 +49,13 @@ function HotelDetails() {
             return "";
         }
 
+
         if (image.startsWith("http")) {
             return image;
         }
 
-        return `http://localhost:5000${image}`;
+
+        return `${API_URL}${image}`;
 
     };
 
@@ -69,18 +75,13 @@ function HotelDetails() {
                 setError("");
 
 
-                /*
-                   FIRST:
-                   Try direct ID API.
-                */
+               
 
                 try {
 
                     const response =
                         await axios.get(
-
-                            `http://localhost:5000/api/hotels/${id}`
-
+                            `${API_URL}/api/hotels/${id}`
                         );
 
 
@@ -96,7 +97,7 @@ function HotelDetails() {
 
                     }
 
-                } catch (directError) {
+                } catch{
 
                     console.log(
                         "Direct hotel API unavailable. Trying list API..."
@@ -113,16 +114,13 @@ function HotelDetails() {
 
                 const listResponse =
                     await axios.get(
-
-                        "http://localhost:5000/api/hotels",
-
+                        `${API_URL}/api/hotels`,
                         {
                             params: {
                                 limit: 50,
                                 offset: 0
                             }
                         }
-
                     );
 
 
@@ -217,6 +215,7 @@ function HotelDetails() {
                     {error || "Hotel not found."}
                 </h2>
 
+
                 <button
                     className="view-button"
                     onClick={() =>
@@ -271,6 +270,7 @@ function HotelDetails() {
                 <title>
                     {hotel.title} | HAVESTA
                 </title>
+
 
                 <meta
                     name="description"
@@ -611,6 +611,7 @@ function HotelDetails() {
 
                 </main>
 
+
             </div>
 
         </>
@@ -618,5 +619,6 @@ function HotelDetails() {
     );
 
 }
+
 
 export default HotelDetails;

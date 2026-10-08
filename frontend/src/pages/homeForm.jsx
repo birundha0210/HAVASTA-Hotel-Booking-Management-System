@@ -27,7 +27,7 @@ const[errors,setErrors]=useState({});
 const getImageUrl=(imagePath)=>{
 if(!imagePath)return"";
 if(imagePath.startsWith("http"))return imagePath;
-return`http://localhost:5000${imagePath}`;
+return`https://havasta-hotel-booking-management-system.onrender.com${imagePath}`;
 };
 
 useEffect(()=>{
@@ -35,7 +35,7 @@ if(!isEditMode)return;
 
 const loadHotel=async()=>{
 try{
-const response=await axios.get(`http://localhost:5000/api/hotels/${id}`);
+const response=await axios.get(`https://havasta-hotel-booking-management-system.onrender.com/api/hotels/${id}`);
 const hotel=response.data.hotel;
 
 if(!hotel){
@@ -67,7 +67,7 @@ setPreview(getImageUrl(hotel.image));
 console.error(error);
 
 try{
-const response=await axios.get("http://localhost:5000/api/hotels",{
+const response=await axios.get("https://havasta-hotel-booking-management-system.onrender.com/api/hotels",{
 params:{
 limit:50,
 offset:0
@@ -216,7 +216,7 @@ data.append("image",image);
 }
 
 if(isEditMode){
-await axios.put(`http://localhost:5000/api/hotels/${id}`,data);
+await axios.put(`https://havasta-hotel-booking-management-system.onrender.com/api/hotels/${id}`,data);
 
 navigate("/",{
 replace:true,
@@ -228,7 +228,7 @@ message:"Hotel updated successfully"
 }
 });
 }else{
-await axios.post("http://localhost:5000/api/hotels",data);
+await axios.post("https://havasta-hotel-booking-management-system.onrender.com/api/hotels",data);
 
 navigate("/",{
 replace:true,
